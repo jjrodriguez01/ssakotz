@@ -1,0 +1,92 @@
+<div *ngIf="knight">
+    <section>
+        <div class="row mt-2">
+            <h3>Habilidades</h3>
+            <div class="col-md-10">
+                <div class="mt-1">
+                    <h5>{{knight.skills[0].name}}</h5>
+                    <p>{{knight.skills[0].description}}</p>
+                    
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option *ngFor="let level of knight.skills[0].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
+                    </select>
+                </div>
+                <div class="mt-1">
+                    <h5>{{knight.skills[1].name}}</h5>
+                    <p>{{knight.skills[1].description}}</p>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option *ngFor="let level of knight.skills[1].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
+                    </select>
+                </div>
+                <div class="mt-1">
+                    <h5>{{knight.skills[2].name}}</h5>
+                    <p>{{knight.skills[2].description}}</p>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option *ngFor="let level of knight.skills[2].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
+                    </select>
+                </div>
+                <div class="mt-1">
+                    <h5>{{knight.skills[3].name}}</h5>
+                    <p>{{knight.skills[3].description}}</p>
+                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                        <option *ngFor="let level of knight.skills[3].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <h2>{{knight.name | uppercase}}</h2>
+                <div><img [src]="knight.image"></div>
+                <div><span>Nombre: </span>{{knight.name}}</div>
+                <div><span>Rango: </span>{{knight.type}}</div>
+            </div>
+        </div>
+    </section>
+    
+        <div class="row">
+            <div class="col-md-4">
+                <section>
+                    <h3>Atributos básicos</h3>
+                    <div class="attributes-flex">
+                        <div class="attribute"><span>PS: </span>{{knight.basicAttributes.healtPoints}}</div>
+                        <div class="attribute"><span>Ataque cósmico: </span>{{knight.basicAttributes.cosmicAtk}}</div>
+                        <div class="attribute"><span>Defensa cósmica: </span>{{knight.basicAttributes.cosmicDef}}</div>
+                        <div class="attribute"><span>Ataque físico: </span>{{knight.basicAttributes.physicalAtk}}</div>
+                        <div class="attribute"><span>Defensa física: </span>{{knight.basicAttributes.physicalDef}}</div>
+                        <div class="attribute"><span>Velocidad: </span>{{knight.basicAttributes.speed}}</div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4">
+                <section>
+                    <h3>Editar atributos básicos</h3>
+                    <div>
+                        <div class="attribute-edit">
+                            <label for="hp">PS</label>
+                            <input id="hp" type="number" [(ngModel)]="knight.basicAttributes.healtPoints" placeholder="hp">
+                        </div>
+                        <div class="attribute-edit">
+                            <label for="hp">Ataque cósmico</label>
+                            <input id="hp" type="number" [(ngModel)]="knight.basicAttributes.cosmicAtk" placeholder="hp">
+                        </div>
+                        <div class="attribute-edit">
+                            <label for="hp">Defensa cósmica</label>
+                            <input id="hp" type="number" [(ngModel)]="knight.basicAttributes.cosmicDef" placeholder="hp">
+                        </div>
+                        <div class="attribute-edit">
+                            <label for="hp">Ataque físico</label>
+                            <input id="hp" type="number" [(ngModel)]="knight.basicAttributes.physicalAtk" placeholder="hp">
+                        </div>
+                        <div class="attribute-edit">
+                            <label for="hp">Defensa física</label>
+                            <input id="hp" type="number" [(ngModel)]="knight.basicAttributes.physicalDef" placeholder="hp">
+                        </div>
+                        <div class="attribute-edit">
+                            <label for="hp">Velocidad</label>
+                            <input id="hp" type="number" [(ngModel)]="knight.basicAttributes.speed" placeholder="hp">
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+</div>

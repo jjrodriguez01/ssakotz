@@ -1,0 +1,10 @@
+<section>
+    <h2>Caballeros</h2>
+    <ul>
+        <li *ngFor="let knight of knights">
+            <a routerLink="/detail/{{knight.id}}">
+                {{knight.name}}
+            </a>
+            </li>
+    </ul>
+</section>
