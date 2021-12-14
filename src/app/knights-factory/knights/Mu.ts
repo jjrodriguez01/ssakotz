@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Mu{
-    create(): Knight{
-        
-        const knight = {
-            id: 5,
-            name: "Mu de Aries",
-            image: "assets/images/mu.webp", 
-            type: KnightTypeEnum.S,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class Mu implements Knight{
+    
+    id = 5
+    name = "Mu de Aries"
+    image= "assets/images/mu.webp"
+    type= KnightTypeEnum.S
+    level= 0
+    basicAttributes= new BasicAttributes()
+    battleAttributes= new BattleAttributes()
+    skills= [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
+    damageType = DamageType.COSMIC
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={

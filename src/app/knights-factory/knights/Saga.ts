@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Saga{
-    create(): Knight{
-        
-        const knight = {
-            id: 7,
-            name: "Saga de Géminis",
-            image: "assets/images/saga.webp", 
-            type: KnightTypeEnum.S,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class Saga implements Knight{
+    
+    id= 7
+    name= "Saga de Géminis"
+    image= "assets/images/saga.webp"
+    type= KnightTypeEnum.S
+    level= 0
+    basicAttributes= new BasicAttributes()
+    battleAttributes= new BattleAttributes()
+    skills= [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
+    damageType = DamageType.COSMIC
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={

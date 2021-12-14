@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Thanatos{
-    create(): Knight{
-        
-        const knight = {
-            id: 9,
-            name: "Thanatos",
-            image: "assets/images/thanatos.webp", 
-            type: KnightTypeEnum.SS,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class Thanatos implements Knight{
+    
+    id= 9
+    name= "Thanatos"
+    image= "assets/images/thanatos.webp"
+    type= KnightTypeEnum.SS
+    level= 0
+    basicAttributes= new BasicAttributes()
+    battleAttributes= new BattleAttributes()
+    skills= [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
+    damageType = DamageType.PHYSIC
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={

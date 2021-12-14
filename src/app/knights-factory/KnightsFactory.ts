@@ -11,42 +11,34 @@ import { Thanatos } from "./knights/Thanatos";
 export class KnightsFactory{
     static create(knkight: Knights): Knight{
         let knight_created:Knight
-        let saga:Saga = new Saga()
-        knight_created = saga.create()
 
         switch(knkight){
             case Knights.AFRODITA:{
-                let afrodita:Afrodita= new Afrodita()
-                knight_created= afrodita.create()
+                knight_created = new Afrodita()
                 break;
             }
             case Knights.HYOGADIVINO:{
-                let hyogaDivino:HyogaArmaduraDivina = new HyogaArmaduraDivina()
-                knight_created = hyogaDivino.create()
+                knight_created = new HyogaArmaduraDivina()
                 break;
             }
             case Knights.KANON:{
-                let kanon:Kanon = new Kanon()
-                knight_created = kanon.create()
+                knight_created = new Kanon()
                 break;
             }
             case Knights.SAGA:{
-                knight_created = saga.create()
+                knight_created = new Saga()
                 break;
             }
             case Knights.SHURA:{
-                let shura:Shura=new Shura()
-                knight_created=shura.create()
+                knight_created=new Shura()
                 break;
             }
             case Knights.RADAMANTIS:{
-                let rada:Radamanthys=new Radamanthys()
-                knight_created=rada.create()
+                knight_created=new Radamanthys()
                 break;
             }
             case Knights.THANATOS:{
-                let thanatos:Thanatos = new Thanatos()
-                knight_created = thanatos.create()
+                knight_created = new Thanatos()
             }
 
         }

@@ -11,6 +11,7 @@ import { KnightDetailComponent } from './knight-detail/knight-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InMemoryDataService } from './in-memory-data.service';
+import { KnightResultComponent } from './knight-result/knight-result.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     KnightsComponent,
     KnightDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    KnightResultComponent
   ],
   imports: [
     BrowserModule,

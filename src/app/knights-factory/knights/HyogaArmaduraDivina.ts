@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class HyogaArmaduraDivina{
-    create(): Knight{
-        
-        const knight = {
-            id: 3,
-            name: "Hyoga de Cisne de Armadura Divina",
-            image: "assets/images/hyoga-divino.webp", 
-            type: KnightTypeEnum.S,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class HyogaArmaduraDivina implements Knight{
+    
+    id = 3
+    name = "Hyoga de Cisne de Armadura Divina"
+    image = "assets/images/hyoga-divino.webp" 
+    type = KnightTypeEnum.S
+    level = 0
+    damageType = DamageType.COSMIC
+    basicAttributes = new BasicAttributes()
+    battleAttributes = new BattleAttributes()
+    skills = [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={

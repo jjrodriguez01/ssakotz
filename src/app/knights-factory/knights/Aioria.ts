@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Aioria{
-    create(): Knight{
-        
-        const knight = {
-            id: 2,
-            name: "Aioria de Leo",
-            image: "assets/images/aioria.webp", 
-            type: KnightTypeEnum.S,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class Aioria implements Knight{
+    
+    id = 2
+    name = "Aioria de Leo"
+    image = "assets/images/aioria.webp"
+    type = KnightTypeEnum.S
+    level = 0
+    damageType = DamageType.PHYSIC
+    basicAttributes = new BasicAttributes()
+    battleAttributes = new BattleAttributes()
+    skills = [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={

@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Kanon{
-    create(): Knight{
-        
-        const knight = {
-            id:4,
-            name: "Kanon de Géminis",
-            image: "assets/images/kanon.webp", 
-            type: KnightTypeEnum.S,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class Kanon implements Knight{
+    
+    id = 4
+    name = "Kanon de Géminis"
+    image= "assets/images/kanon.webp" 
+    type= KnightTypeEnum.S
+    level= 0
+    basicAttributes= new BasicAttributes()
+    battleAttributes= new BattleAttributes()
+    skills= [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
+    damageType = DamageType.COSMIC
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={
@@ -134,7 +131,7 @@ export class Kanon{
             values: []
         }
         let skill:KnightSkill={
-            name:"Alas flameantes",
+            name:"Fantásma de Géminis",
             description: "Antes de que Kanon inicie su acción, crea un fantasma de Géminis que no puede ser atacado. La ilusión hereda el ATQ y el multiplicador de DÑO C. y lanza un ataque idéntico al objetivo cuando Kanon ataca. Si el objetivo muere, ataca a un enemigo aleatorio.",
             type: SkillType.PASSIVE,
             levels: [lvl1,lvl2,lvl3,lvl4,lvl5]

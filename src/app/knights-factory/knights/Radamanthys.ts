@@ -5,22 +5,19 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Radamanthys{
-    create(): Knight{
-        
-        const knight = {
-            id: 6,
-            name: "Radamantis de Wivern",
-            image: "assets/images/radamantis.webp", 
-            type: KnightTypeEnum.S,
-            level: 0,
-            basicAttributes: new BasicAttributes(),
-            battleAttributes: new BattleAttributes(),
-            skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
-          };
-        return knight
-    }
+export class Radamanthys implements Knight{
+    
+    id = 6
+    name = "Radamantis de Wivern"
+    image= "assets/images/radamantis.webp"
+    type= KnightTypeEnum.S
+    level= 0
+    basicAttributes= new BasicAttributes()
+    battleAttributes= new BattleAttributes()
+    skills= [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
+    damageType = DamageType.PHYSIC
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={

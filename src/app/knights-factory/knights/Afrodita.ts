@@ -5,9 +5,10 @@ import { BattleAttributes } from "src/app/knights/BattleAttributes";
 import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
+import { DamageType } from "src/app/DamageType";
 
-export class Afrodita{
-    create(): Knight{
+export class Afrodita implements Knight{
+    /* create(): Knight{
         
         const knight = {
             id: 1,
@@ -20,7 +21,17 @@ export class Afrodita{
             skills: [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
           };
         return knight
-    }
+    } */
+
+    id = 1
+    name = "Afrodita de Piscis"
+    image = "assets/images/afrodita.webp"
+    type = KnightTypeEnum.S
+    level = 0
+    damageType = DamageType.PHYSIC
+    basicAttributes = new BasicAttributes()
+    battleAttributes = new BattleAttributes()
+    skills = [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
 
     getBasic(): KnightSkill {
         let lvl1:SkillLevel={
@@ -67,31 +78,31 @@ export class Afrodita{
             description: "5% x 3 (15%) de multiplicador",
             level: 1,
             textLevel: "LVL.1",
-            values: [5,15]
+            values: [5]
         }
         let lvl2:SkillLevel={
             description: "7% x 3 (21%) de multiplicador",
             level: 2,
             textLevel: "LVL.2",
-            values: [7,21]
+            values: [7]
         }
         let lvl3:SkillLevel={
             description: "10% x 3 (30%) de multiplicador",
             level: 3,
             textLevel: "LVL.3",
-            values: [10,30]
+            values: [10]
         }
         let lvl4:SkillLevel={
             description: "12% x 3 (36%) de multiplicador",
             level: 4,
             textLevel: "LVL.4",
-            values: [12,36]
+            values: [12]
         }
         let lvl5:SkillLevel={
             description: "15% x 3 (45%) de multiplicador",
             level: 5,
             textLevel: "LVL.5",
-            values: [15,45]
+            values: [15]
         }
         let skill:KnightSkill={
             name:"Rosa Piraña",

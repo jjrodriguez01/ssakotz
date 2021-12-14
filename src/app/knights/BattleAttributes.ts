@@ -10,6 +10,9 @@ export class BattleAttributes{
     cosmicDEFPerf: number = 0;
     dmgReflect: number = 0;
     hpSteal: number = 0;
-    healibg: number = 0;
+    healing: number = 0;
     basePhysicalCrit: number = 0;
+    defenderDef: number = 0;
+    defenderResDef: number = 0;
+    defenderCritRes: number = 0;
 }
