@@ -1,0 +1,7 @@
+<h2>Top Knights</h2>
+<div class="knights-menu">
+  <a *ngFor="let knight of knights"
+  routerLink="/detail/{{knight.id}}">
+    {{knight.name}}
+  </a>
+</div>

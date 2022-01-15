@@ -1,0 +1,17 @@
+.attributes-flex{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.attributes-flex span{
+    font-weight: bold;
+    padding: 5px;
+}
+
+.attribute-edit{
+    padding: 3px;
+}
+
+.attribute-edit label{
+    padding-right: 5px;
+}
