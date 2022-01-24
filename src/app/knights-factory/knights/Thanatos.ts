@@ -16,166 +16,153 @@ export class Thanatos implements Knight{
     level= 0
     basicAttributes= new BasicAttributes()
     battleAttributes= new BattleAttributes()
-    skills= [this.getBasic(), this.getFirstSkill(), this.getSecondSkill(),this.getThirdSkill()]
+    skills= [this.getBasic(1), this.getFirstSkill(1), this.getSecondSkill(1),this.getThirdSkill(1)]
     damageType = DamageType.PHYSIC
 
-    getBasic(): KnightSkill {
-        let lvl1:SkillLevel={
-            description: "Inflige 120% de DÑO F, aumenta 2 de furia",
-            level: 1,
-            textLevel: "LVL.1",
-            values: [120]
-        }
-        let lvl2:SkillLevel={
-            description: "Inflige 130% de DÑO F, aumenta 4 de furia",
-            level: 2,
-            textLevel: "LVL.2",
-            values: [130]
-        }
-        let lvl3:SkillLevel={
-            description: "Inflige 140% de DÑO F, aumenta 7 de furia",
-            level: 3,
-            textLevel: "LVL.3",
-            values: [140]
-        }
-        let lvl4:SkillLevel={
-            description: "Inflige 150% de DÑO F, aumenta 10 de furia",
-            level: 4,
-            textLevel: "LVL.4",
-            values: [150]
-        }
-        let lvl5:SkillLevel={
-            description: "Inflige 170% de DÑO F, aumenta 15 de furia",
-            level: 5,
-            textLevel: "LVL.5",
-            values: [170]
-        }
+    getBasic(level: number): KnightSkill {
+        let values = new Map<number,number[]>();
+        values.set(1,[120,2]);
+        values.set(2,[130,4]);
+        values.set(3,[140,7]);
+        values.set(4,[150,10]);
+        values.set(5,[170,15]);
+        var levels:SkillLevel[] = []
+        
+        values.forEach((value: number[], key: number) => {
+            let skill:SkillLevel={
+                skillId:1,
+                description: `Inflige ${value[0]}% de DÑO F, aumenta ${value[1]} de furia`,
+                level: key,
+                values: value
+            }
+            levels.push(skill)
+          });
+        let activeLevel = levels.find(x => x.level === level)
+        let activeVal = activeLevel !== undefined ? activeLevel.values : []
         let skill:KnightSkill={
+            id: 1,
             name:"Castigo divino",
-            description: "Inflige 120% de DÑO F. a un enemigo y le otorga a Thanatos 2 de furia",
+            //description: activeSkill !== undefined ? activeSkill.description:"",
+            description: `Inflige ${activeVal[0]}% de DÑO F. a un enemigo y le otorga a Thanatos ${activeVal[1]} de furia`,
             type: SkillType.ACTIVE,
-            levels: [lvl1,lvl2,lvl3,lvl4,lvl5]
+            levels: levels
         }
         return skill
     }
 
-    getFirstSkill(): KnightSkill {
-        let lvl1:SkillLevel={
-            description: "Inflige 50% de DÑO F, cada vez que ataca y otorga 10 de furia. Si Thanatos tiene menos de 40 de furia otorga 5 de furia adicional",
-            level: 1,
-            textLevel: "LVL.1",
-            values: [50]
-        }
-        let lvl2:SkillLevel={
-            description: "Inflige 60% de DÑO F, cada vez que ataca y otorga 10 de furia. Si Thanatos tiene menos de 50 de furia otorga 10 de furia adicional",
-            level: 2,
-            textLevel: "LVL.2",
-            values: [60]
-        }
-        let lvl3:SkillLevel={
-            description: "Inflige 70% de DÑO F, cada vez que ataca y otorga 10 de furia. Si Thanatos tiene menos de 50 de furia otorga 10 de furia adicional",
-            level: 3,
-            textLevel: "LVL.3",
-            values: [70]
-        }
-        let lvl4:SkillLevel={
-            description: "Inflige 80% de DÑO F, cada vez que ataca y otorga 10 de furia. Si Thanatos tiene menos de 60 de furia otorga 15 de furia adicional",
-            level: 4,
-            textLevel: "LVL.4",
-            values: [80]
-        }
-        let lvl5:SkillLevel={
-            description: "Inflige 100% de DÑO F, cada vez que ataca y otorga 10 de furia. Si Thanatos tiene menos de 60 de furia otorga 20 de furia adicional",
-            level: 5,
-            textLevel: "LVL.5",
-            values: [100]
-        }
+    getFirstSkill(level: number): KnightSkill {
+        let values = new Map<number,number[]>();
+        values.set(1,[50,10,40,5]);
+        values.set(2,[60,10,50,10]);
+        values.set(3,[70,10,50,10]);
+        values.set(4,[80,20,60,15]);
+        values.set(5,[100,20,60,20]);
+        var levels:SkillLevel[] = []
+
+        values.forEach((value: number[], key: number) => {
+            let skill:SkillLevel={
+                skillId:2,
+                description: `Inflige ${value[0]}% de DÑO F, cada vez que ataca y otorga ${value[1]} de furia. Si Thanatos tiene menos de ${value[2]} de furia otorga ${value[3]} de furia adicional`,
+                level: key,
+                values: value
+            }
+            levels.push(skill)
+          });
+        let activeLevel = levels.find(x => x.level === level)
+        let activeVal = activeLevel !== undefined ? activeLevel.values : []
+
         let skill:KnightSkill={
+            id:2,
             name:"Destino aterrador",
-            description: "Ataca a un enemigo 5 veces, lo que inflige un 50% de DÑO f. y aumenta la ira de Thanatos en 10 cada ocasión. Si su ira es menor de 40, aumenta más su ira en 5. Por cada aliado que muere antes de usar esta habilidad, la ira aumenta en 10",
+            description: `Ataca a un enemigo 5 veces, lo que inflige un ${activeVal[0]}% de DÑO f. y aumenta la ira de Thanatos en ${activeVal[1]} cada ocasión. Si su ira es menor de ${activeVal[2]}, aumenta más su ira en 5. Por cada aliado que muere antes de usar esta habilidad, la ira aumenta en 10.`,
             type: SkillType.ACTIVE,
-            levels: [lvl1,lvl2,lvl3,lvl4,lvl5]
+            levels: levels
         }
         return skill
     }
 
-    getSecondSkill(): KnightSkill {
-        let lvl1:SkillLevel={
-            description: "Inflige 60% de daño verdadero a todos los enemigos y reduce un 5% de su DEF F. y DEF C.",
-            level: 1,
-            textLevel: "LVL.1",
-            values: [60]
-        }
-        let lvl2:SkillLevel={
-            description: "Inflige 80% de daño verdadero a todos los enemigos y reduce un 5% de su DEF F. y DEF C.",
-            level: 2,
-            textLevel: "LVL.2",
-            values: [80]
-        }
-        let lvl3:SkillLevel={
-            description: "Inflige 100% de daño verdadero a todos los enemigos y reduce un 5% de su DEF F. y DEF C.",
-            level: 3,
-            textLevel: "LVL.3",
-            values: [100]
-        }
-        let lvl4:SkillLevel={
-            description: "Inflige 130% de daño verdadero a todos los enemigos y reduce un 7% de su DEF F. y DEF C.",
-            level: 4,
-            textLevel: "LVL.4",
-            values: [130]
-        }
-        let lvl5:SkillLevel={
-            description: "Inflige 160% de daño verdadero a todos los enemigos y reduce un 7% de su DEF F. y DEF C.",
-            level: 5,
-            textLevel: "LVL.5",
-            values: [160]
-        }
+    getSecondSkill(level: number): KnightSkill {
+        let values = new Map<number,number[]>();
+        values.set(1,[60,5]);
+        values.set(2,[80,5]);
+        values.set(3,[100,5]);
+        values.set(4,[130,7]);
+        values.set(5,[160,7]);
+        var levels:SkillLevel[] = []
+
+        values.forEach((value: number[], key: number) => {
+            let skill:SkillLevel={
+                skillId:3,
+                description: `Inflige ${value[0]}% de daño verdadero a todos los enemigos y reduce un ${value[1]}% de su DEF F. y DEF C.`,
+                level: key,
+                values: value
+            }
+            levels.push(skill)
+          });
+        let activeLevel = levels.find(x => x.level === level)
+        let activeVal = activeLevel !== undefined ? activeLevel.values : []
+
         let skill:KnightSkill={
+            id:3,
             name:"Poderío final",
-            description: "Cuando la ira de Thanatos está completa, consume toda la ira y lanza poderío final, que inflie 60% de daño verdadero, (junto con el ataque aumentado al 100% por la ira) y destroza a todos los enemigos",
+            description: `Cuando la ira de Thanatos está completa, consume toda la ira y lanza poderío final, que inflige ${activeVal[0]}% de daño verdadero (junto con el ataque aumentado al 100% por la ira) y destroza a todos los enemigos`,
             type: SkillType.PASSIVE,
-            levels: [lvl1,lvl2,lvl3,lvl4,lvl5]
+            levels: levels
         }
         return skill
     }
 
-    getThirdSkill(): KnightSkill {
-        let lvl1:SkillLevel={
-            description: "El objetivo recibe 1000% de DÑO F., luego de actuar 4 veces. Si la ira de Thanatos está por encima de 60, recibe 20% de daño adicional.",
-            level: 1,
-            textLevel: "LVL.1",
-            values: [1000,20]
-        }
-        let lvl2:SkillLevel={
-            description: " El objetivo recibe 1100% de DÑO F., luego de actuar 4 veces. Si la ira de Thanatos está por encima de 60, recibe 30% de daño adicional.",
-            level: 2,
-            textLevel: "LVL.2",
-            values: [1100,30]
-        }
-        let lvl3:SkillLevel={
-            description: "El objetivo recibe 1100% de DÑO F., luego de actuar 3 veces. Si la ira de Thanatos está por encima de 50, recibe 40% de daño adicional.",
-            level: 3,
-            textLevel: "LVL.3",
-            values: [1100,40]
-        }
-        let lvl4:SkillLevel={
-            description: "El objetivo recibe 1300% de DÑO F., luego de actuar 3 veces. Si la ira de Thanatos está por encima de 40, recibe 45% de daño adicional.",
-            level: 4,
-            textLevel: "LVL.4",
-            values: [1300,45]
-        }
-        let lvl5:SkillLevel={
-            description: "El objetivo recibe 1300% de DÑO F., luego de actuar 2 veces. Si la ira de Thanatos está por encima de 40, recibe 50% de daño adicional.",
-            level: 5,
-            textLevel: "LVL.5",
-            values: [1300,50]
-        }
+    getThirdSkill(level : number): KnightSkill {
+        let values = new Map<number,number[]>();
+        values.set(1,[1000,4,60,20]);
+        values.set(2,[1100,4,60,30]);
+        values.set(3,[1100,3,50,40]);
+        values.set(4,[1300,3,40,45]);
+        values.set(5,[1300,2,40,50]);
+        var levels:SkillLevel[] = []
+
+        values.forEach((value: number[], key: number) => {
+            let skill:SkillLevel={
+                skillId:4,
+                description: `El objetivo recibe ${value[0]}% de DÑO F., luego de actuar ${value[1]} veces. Si la ira de Thanatos está por encima de ${value[2]}, recibe ${value[3]}% de daño adicional.`,
+                level: key,
+                values: value
+            }
+            levels.push(skill)
+          });
+        let activeLevel = levels.find(x => x.level === level)
+        let activeVal = activeLevel !== undefined ? activeLevel.values : []
+
+        
         let skill:KnightSkill={
+            id:4,
             name:"Mirada de muerte",
-            description: "Thanatos apunta a un objetivo que recibe 1000% de DÑO F. si sigue vivo después de 4 rondas de acción. Si la ira de Thanatos está por encima de 60, el objetivo recibe 20% de daño adicional.",
+            description: `Thanatos apunta a un objetivo que recibe ${activeVal[0]}% de DÑO F., si sigue vivo después de ${activeVal[1]} rondas de accion. Si la ira de Thanatos está por encima de ${activeVal[2]}, recibe ${activeVal[3]}% de daño adicional.`,
             type: SkillType.PASSIVE,
-            levels: [lvl1,lvl2,lvl3,lvl4,lvl5]
+            levels: levels
         }
         return skill
+    }
+
+    getSkill(id:number, level:number):KnightSkill {
+        let skill = this.getBasic(level);
+        switch(id){
+            case 1:
+                skill = skill;
+                break;
+            case 2:
+                skill = this.getFirstSkill(level);
+                break;
+            case 3:
+                skill = this.getSecondSkill(level);
+                break;
+            case 4:
+                skill = this.getThirdSkill(level);
+                break;
+            default:
+                skill = skill;
+                break;
+        }
+        return skill;
     }
 }

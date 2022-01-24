@@ -13,13 +13,13 @@ export class InMemoryDataService implements InMemoryDbService{
 
   createDb(){
     const knights = [
-      KnightsFactory.create(Knights.HYOGADIVINO),
+      //KnightsFactory.create(Knights.HYOGADIVINO),
       KnightsFactory.create(Knights.THANATOS),
-      KnightsFactory.create(Knights.AFRODITA),
-      KnightsFactory.create(Knights.SAGA),
-      KnightsFactory.create(Knights.KANON),
-      KnightsFactory.create(Knights.RADAMANTIS),
-      KnightsFactory.create(Knights.SHURA)
+      //KnightsFactory.create(Knights.AFRODITA),
+      //KnightsFactory.create(Knights.SAGA),
+      //KnightsFactory.create(Knights.KANON),
+      //KnightsFactory.create(Knights.RADAMANTIS),
+      //KnightsFactory.create(Knights.SHURA)
     ];
 
     const cosmos = [

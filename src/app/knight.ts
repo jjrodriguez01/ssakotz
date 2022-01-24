@@ -14,4 +14,5 @@ export interface Knight {
     basicAttributes: BasicAttributes
     battleAttributes: BattleAttributes
     skills : KnightSkill[]
+    getSkill(id:number, level:number): KnightSkill
   }

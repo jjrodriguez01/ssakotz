@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 import {KnightsFactory} from './knights-factory/KnightsFactory'
 import { Knight } from './knight';
 import { Knights } from './knights-factory/Knights';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { KnightSkill } from './KnightSkill';
+import { KnightTypeEnum } from './KnightType';
+import { SkillType } from './SkillType';
+import { Thanatos } from './knights-factory/knights/Thanatos';
 
 @Injectable({
   providedIn: 'root'
@@ -48,12 +52,23 @@ export class KnightService {
   } */
 
   getKnight(id: number): Observable<Knight>{
-    //const url = '${this.knightsUrl}/${id}';
-    const url = this.knightsUrl + '/'+ id;
+    const url = `${this.knightsUrl}/${id}`;
     return this.http.get<Knight>(url).pipe(
-      tap(_ => this.log('fetched knight id=${id}')),
+      tap(_ => this.log(`fetched knight id=${id}`)),
       catchError(this.handleError<Knight>('getKnight id=${id}'))
     );
+  }
+
+  getSkill(knightId:number, skillId:number, level: number): KnightSkill{
+    let skill : KnightSkill = {description:"",id:0,type:SkillType.ACTIVE,name:"",levels:[]}
+    let knight: Knight
+    switch(knightId){
+      case 9:
+        knight = new Thanatos()
+        skill=knight.getSkill(skillId,level)
+      break;
+    }
+    return skill
   }
 
   private log(message: string) {

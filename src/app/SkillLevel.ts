@@ -1,6 +1,6 @@
 export interface SkillLevel{
+    skillId: number
     level: number
-    textLevel: string
     description: string
-    values?: number[]
+    values: number[]
 }

@@ -6,6 +6,10 @@ import { KnightService } from '../knight.service';
 import { CosmoService } from '../cosmo.service';
 import { LegendaryCosmo } from '../LegendaryCosmo/LegendaryCosmo';
 import { DamageType } from '../DamageType';
+import { KnightSkill } from '../KnightSkill';
+import { SkillLevel } from '../SkillLevel';
+import { FormGroup, FormControl,FormArray, FormBuilder } from '@angular/forms'
+
 
 @Component({
   selector: 'app-knight-detail',
@@ -14,17 +18,23 @@ import { DamageType } from '../DamageType';
 })
 export class KnightDetailComponent implements OnInit {
 
-
-  constructor(private route: ActivatedRoute,
-    private knightService: KnightService,
-    private cosmoService: CosmoService,
-    private location: Location) { }
-
   @Input() knight?: Knight;
   @Input() cosmos?: LegendaryCosmo[];
   cosmoImg = "assets/images/cosmo/nothing.jpg";
   selectedCosmo = undefined;
-    
+  skillsForm: FormGroup;
+
+  constructor(private route: ActivatedRoute,
+    private knightService: KnightService,
+    private cosmoService: CosmoService,
+    private fb:FormBuilder) { 
+      this.skillsForm = fb.group({skillsFormArray:this.fb.array([])});
+    }
+
+  get skillsFormArray() : FormArray {
+    return this.skillsForm.get("skillsFormArray") as FormArray
+  }
+
   ngOnInit(): void {
     this.getKnight();
     this.getCosmos();
@@ -32,7 +42,16 @@ export class KnightDetailComponent implements OnInit {
 
   getKnight(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.knightService.getKnight(id).subscribe(knight => this.knight = knight);
+    this.knightService.getKnight(id).subscribe(knight => {
+      this.knight = knight
+      knight.skills.forEach(skill =>
+        {
+          let control = new FormControl(skill.levels[0])
+          
+          this.skillsFormArray.push(control)
+        });
+        
+      });
   }
 
   getCosmos(): void {
@@ -54,5 +73,50 @@ export class KnightDetailComponent implements OnInit {
       this.cosmoImg = cosmo.image;
     }
   }
+
+  onChangeSkill(id: number){
+    this.skillsFormArray.controls.forEach(e=>{
+      let level = e.value as SkillLevel
+      if(level.skillId == id){
+        if(this.knight !== undefined){
+          //let skill = this.knight.skills.find(s => s.id == id)
+          let skill = this.knightService.getSkill(this.knight.id,id,level.level)
+          if(skill !== undefined){
+            this.knight.skills[id-1] = skill
+          }
+        }
+      }
+    })
+    Object.keys(this.skillsForm.controls).forEach(e=>{
+      console.log(this.skillsForm.controls[e].value)
+      if(this.knight !==undefined){
+        let level = this.skillsForm.controls[e].value as SkillLevel
+        //this.knight.skills[id].description = level.description
+      }
+    })
+    
+  }
+
+  getSkill(knight: Knight, id:number, level:number):KnightSkill {
+    let skill = knight.skills[0]
+    switch(id){
+        case 1:
+            skill = skill;
+            break;
+        case 2:
+            skill = knight.skills[1]
+            break;
+        case 3:
+            skill = knight.skills[2]
+            break;
+        case 4:
+            skill = knight.skills[3]
+            break;
+        default:
+            skill = skill;
+            break;
+    }
+    return skill;
+}
 
 }

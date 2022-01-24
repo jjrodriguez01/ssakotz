@@ -1,41 +1,21 @@
 <div *ngIf="knight">
     <section class="mb-3">
     <h3>Habilidades</h3>
-    <form>
         <div class="row mt-2">
             
-            <div class="col-md-5">
-                <div class="mt-1">
-                    <h5>{{knight.skills[0].name}}</h5>
-                    <p>{{knight.skills[0].description}}</p>
-                    
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option *ngFor="let level of knight.skills[0].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
-                    </select>
-                </div>
-                <div class="mt-1">
-                    <h5>{{knight.skills[1].name}}</h5>
-                    <p>{{knight.skills[1].description}}</p>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option *ngFor="let level of knight.skills[1].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-md-5">
-                <div class="mt-1">
-                    <h5>{{knight.skills[2].name}}</h5>
-                    <p>{{knight.skills[2].description}}</p>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option *ngFor="let level of knight.skills[2].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
-                    </select>
-                </div>
-                <div class="mt-1">
-                    <h5>{{knight.skills[3].name}}</h5>
-                    <p>{{knight.skills[3].description}}</p>
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option *ngFor="let level of knight.skills[3].levels" [value]="level.level">{{level.textLevel}} {{level.description}}</option>
-                    </select>
-                </div>
+            <div class="col-md-10">
+                <form action="" [formGroup]="skillsForm">
+                    <div formArrayName="skillsFormArray">
+                        <div *ngFor="let skill of knight.skills; let i = index" class="mt-1">
+                            <h5>{{knight.skills[i].name}}</h5>
+                            <p>{{knight.skills[i].description}}</p>
+                            
+                            <select (change)="onChangeSkill(i+1)" [formControlName]="i" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option *ngFor="let level of knight.skills[i].levels" [ngValue]="level">Lvl.{{level.level}} {{level.description}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="col-md-2">
                 <h4>{{knight.name | uppercase}}</h4>
@@ -43,8 +23,8 @@
                 <div><span>Nombre: </span>{{knight.name}}</div>
                 <div><span>Rango: </span>{{knight.type}}</div>
             </div>
+
         </div>
-    </form>
     </section>
     
         <div class="row">
@@ -72,7 +52,6 @@
                 <section>
                     <h3>Editar atributos básicos</h3>
                     <div>
-                        <form>
                             <div class="">
                                 <label for="hp">PS</label>
                                 <input id="hp" name="hp" type="number" [(ngModel)]="knight.basicAttributes.healtPoints">
@@ -129,12 +108,11 @@
                                 <label for="hpSteal">Robo de vida</label>
                                 <input id="hpSteal" name="hpSteal" type="number" [(ngModel)]="knight.battleAttributes.hpSteal">
                             </div>
-                        </form>
                     </div>
                 </section>
             </div>
             <div class="col-md-2">
-                <select [ngModel]="selectedCosmo" (ngModelChange)="onChangeSelCosmo($event)" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <select name="cosmo" [ngModel]="selectedCosmo" (ngModelChange)="onChangeSelCosmo($event)" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option value="undefined"></option>
                     <option *ngFor="let cosmo of cosmos" [ngValue]="cosmo">{{cosmo.name}}</option>
                 </select>
