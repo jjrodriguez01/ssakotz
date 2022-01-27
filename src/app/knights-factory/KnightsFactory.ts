@@ -7,42 +7,24 @@ import { Radamanthys } from "./knights/Radamanthys";
 import { Saga } from "./knights/Saga";
 import { Shura } from "./knights/shura";
 import { Thanatos } from "./knights/Thanatos";
+import {LinkedList} from 'typescript-collections';
 
 export class KnightsFactory{
-    static create(knkight: Knights): Knight{
-        let knight_created:Knight
-        knight_created = new Thanatos()//default for develop propoures remove!
-        switch(knkight){
-            case Knights.AFRODITA:{
-                //knight_created = new Afrodita()
-                break;
-            }
-            case Knights.HYOGADIVINO:{
-                //knight_created = new HyogaArmaduraDivina()
-                break;
-            }
-            case Knights.KANON:{
-                //knight_created = new Kanon()
-                break;
-            }
-            case Knights.SAGA:{
-                //knight_created = new Saga()
-                break;
-            }
-            case Knights.SHURA:{
-                //knight_created=new Shura()
-                break;
-            }
-            case Knights.RADAMANTIS:{
-                //knight_created=new Radamanthys()
-                break;
-            }
-            case Knights.THANATOS:{
-                knight_created = new Thanatos()
-            }
-
-        }
-
-        return knight_created
+    list = new LinkedList<Knight>()
+    constructor(){
+        this.list.add(new Kanon())
+        this.list.add(new Thanatos())
+        this.list.add(new Radamanthys())
     }
+    
+
+    getAll(): Knight[]{
+        console.log(this.list.toArray())
+        return this.list.toArray()
+    }
+
+    getKnight(id: number): Knight | undefined{
+        return this.list.toArray().find(x => x.id == id)
+    }
+
 }

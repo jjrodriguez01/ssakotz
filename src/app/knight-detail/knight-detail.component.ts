@@ -47,10 +47,8 @@ export class KnightDetailComponent implements OnInit {
       knight.skills.forEach(skill =>
         {
           let control = new FormControl(skill.levels[0])
-          
           this.skillsFormArray.push(control)
-        });
-        
+        });        
       });
   }
 
@@ -83,18 +81,11 @@ export class KnightDetailComponent implements OnInit {
           let skill = this.knightService.getSkill(this.knight.id,id,level.level)
           if(skill !== undefined){
             this.knight.skills[id-1] = skill
+            e.setValue(skill.levels[level.level-1])
           }
         }
       }
     })
-    Object.keys(this.skillsForm.controls).forEach(e=>{
-      console.log(this.skillsForm.controls[e].value)
-      if(this.knight !==undefined){
-        let level = this.skillsForm.controls[e].value as SkillLevel
-        //this.knight.skills[id].description = level.description
-      }
-    })
-    
   }
 
   getSkill(knight: Knight, id:number, level:number):KnightSkill {

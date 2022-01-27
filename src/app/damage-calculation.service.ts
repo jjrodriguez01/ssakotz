@@ -9,7 +9,7 @@ export class DamageCalculationService {
 
   constructor() { }
 
-  damage(knight: Knight, levelSkill: number,finalFactor: number): number{
+  damage(knight: Knight, dmgMultiplier: number,finalFactor: number): number{
     let atk = 0
     let defPerf = 0
     let dmg = 0
@@ -22,10 +22,10 @@ export class DamageCalculationService {
       defPerf = knight.battleAttributes.physicalDEFPerf
       dmg = knight.battleAttributes.physicalCritEffect
     }
-
-    let defFactor = (400+10*knight.level)/(knight.battleAttributes.defenderDef-defPerf)+400+10*knight.level
+    finalFactor == 0? finalFactor = 1 : finalFactor = finalFactor
+    let defFactor = (400+10*knight.level)/((knight.battleAttributes.defenderDef-defPerf)+400+10*knight.level)
     let resFactor = 1/1+knight.battleAttributes.defenderResDef
-    let damage = atk*levelSkill*dmg*resFactor*defFactor*finalFactor
+    let damage = (atk*(dmgMultiplier/100)*dmg*resFactor*defFactor)*finalFactor
     return 0
   }
 

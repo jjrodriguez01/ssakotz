@@ -43,7 +43,7 @@ export class Thanatos implements Knight{
             id: 1,
             name:"Castigo divino",
             //description: activeSkill !== undefined ? activeSkill.description:"",
-            description: `Inflige ${activeVal[0]}% de DÑO F. a un enemigo y le otorga a Thanatos ${activeVal[1]} de furia`,
+            description: `Inflige <b>${activeVal[0]}</b>% de DÑO F. a un enemigo y le otorga a Thanatos <b>${activeVal[1]}</b> de furia`,
             type: SkillType.ACTIVE,
             levels: levels
         }
@@ -74,7 +74,7 @@ export class Thanatos implements Knight{
         let skill:KnightSkill={
             id:2,
             name:"Destino aterrador",
-            description: `Ataca a un enemigo 5 veces, lo que inflige un ${activeVal[0]}% de DÑO f. y aumenta la ira de Thanatos en ${activeVal[1]} cada ocasión. Si su ira es menor de ${activeVal[2]}, aumenta más su ira en 5. Por cada aliado que muere antes de usar esta habilidad, la ira aumenta en 10.`,
+            description: `Ataca a un enemigo 5 veces, lo que inflige un <b>${activeVal[0]}</b>% de DÑO f. y aumenta la ira de Thanatos en <b>${activeVal[1]}</b> cada ocasión. Si su ira es menor de <b>${activeVal[2]}</b>, aumenta más su ira en 5. Por cada aliado que muere antes de usar esta habilidad, la ira aumenta en 10.`,
             type: SkillType.ACTIVE,
             levels: levels
         }
@@ -105,7 +105,7 @@ export class Thanatos implements Knight{
         let skill:KnightSkill={
             id:3,
             name:"Poderío final",
-            description: `Cuando la ira de Thanatos está completa, consume toda la ira y lanza poderío final, que inflige ${activeVal[0]}% de daño verdadero (junto con el ataque aumentado al 100% por la ira) y destroza a todos los enemigos`,
+            description: `Cuando la ira de Thanatos está completa, consume toda la ira y lanza poderío final, que inflige <b>${activeVal[0]}</b>% de daño verdadero (junto con el ataque aumentado al 100% por la ira) y destroza a todos los enemigos`,
             type: SkillType.PASSIVE,
             levels: levels
         }
@@ -137,7 +137,7 @@ export class Thanatos implements Knight{
         let skill:KnightSkill={
             id:4,
             name:"Mirada de muerte",
-            description: `Thanatos apunta a un objetivo que recibe ${activeVal[0]}% de DÑO F., si sigue vivo después de ${activeVal[1]} rondas de accion. Si la ira de Thanatos está por encima de ${activeVal[2]}, recibe ${activeVal[3]}% de daño adicional.`,
+            description: `Thanatos apunta a un objetivo que recibe <b>${activeVal[0]}</b>% de DÑO F., si sigue vivo después de <b>${activeVal[1]}</b> rondas de accion. Si la ira de Thanatos está por encima de <b>${activeVal[2]}</b>, recibe <b>${activeVal[3]}</b>% de daño adicional.`,
             type: SkillType.PASSIVE,
             levels: levels
         }

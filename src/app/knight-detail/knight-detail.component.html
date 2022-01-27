@@ -1,14 +1,14 @@
 <div *ngIf="knight">
     <section class="mb-3">
-    <h3>Habilidades</h3>
+    <h3 class="mt-2">Habilidades</h3>
         <div class="row mt-2">
             
-            <div class="col-md-10">
+            <div class="col-md-9">
                 <form action="" [formGroup]="skillsForm">
                     <div formArrayName="skillsFormArray">
                         <div *ngFor="let skill of knight.skills; let i = index" class="mt-1">
                             <h5>{{knight.skills[i].name}}</h5>
-                            <p>{{knight.skills[i].description}}</p>
+                            <p [innerHTML]="knight.skills[i].description"></p>
                             
                             <select (change)="onChangeSkill(i+1)" [formControlName]="i" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                 <option *ngFor="let level of knight.skills[i].levels" [ngValue]="level">Lvl.{{level.level}} {{level.description}}</option>
@@ -17,10 +17,9 @@
                     </div>
                 </form>
             </div>
-            <div class="col-md-2">
-                <h4>{{knight.name | uppercase}}</h4>
-                <div><img [src]="knight.image"></div>
-                <div><span>Nombre: </span>{{knight.name}}</div>
+            <div class="col-md-3">
+                <h5>{{knight.name | uppercase}}</h5>
+                <div><img width="120" height="180" [src]="knight.image"></div>
                 <div><span>Rango: </span>{{knight.type}}</div>
             </div>
 
@@ -107,6 +106,11 @@
                             <div class="">
                                 <label for="hpSteal">Robo de vida</label>
                                 <input id="hpSteal" name="hpSteal" type="number" [(ngModel)]="knight.battleAttributes.hpSteal">
+                            </div>
+                            <hr/>
+                            <div class="">
+                                <label for="defDef">Defensa del oponente</label>
+                                <input id="defDef" name="defDef" type="number" [(ngModel)]="knight.battleAttributes.defenderDef">
                             </div>
                     </div>
                 </section>

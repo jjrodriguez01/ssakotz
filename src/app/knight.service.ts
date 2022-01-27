@@ -62,11 +62,10 @@ export class KnightService {
   getSkill(knightId:number, skillId:number, level: number): KnightSkill{
     let skill : KnightSkill = {description:"",id:0,type:SkillType.ACTIVE,name:"",levels:[]}
     let knight: Knight
-    switch(knightId){
-      case 9:
-        knight = new Thanatos()
-        skill=knight.getSkill(skillId,level)
-      break;
+    let factory = new KnightsFactory()
+    knight = factory.getKnight(knightId)!//‘!’ operator indicate this value isn’t nullable
+    if(knight !== undefined){
+      skill=knight.getSkill(skillId,level)
     }
     return skill
   }

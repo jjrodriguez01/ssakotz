@@ -11,16 +11,9 @@ import { LegendaryCosmo } from './LegendaryCosmo/LegendaryCosmo';
 })
 export class InMemoryDataService implements InMemoryDbService{
 
+  factory = new KnightsFactory()
   createDb(){
-    const knights = [
-      //KnightsFactory.create(Knights.HYOGADIVINO),
-      KnightsFactory.create(Knights.THANATOS),
-      //KnightsFactory.create(Knights.AFRODITA),
-      //KnightsFactory.create(Knights.SAGA),
-      //KnightsFactory.create(Knights.KANON),
-      //KnightsFactory.create(Knights.RADAMANTIS),
-      //KnightsFactory.create(Knights.SHURA)
-    ];
+    const knights = this.factory.getAll()
 
     const cosmos = [
       new Chimera()
