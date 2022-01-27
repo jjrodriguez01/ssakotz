@@ -13,7 +13,7 @@ export class DamageCalculationService {
     let atk = 0
     let defPerf = 0
     let dmg = 0
-    if(knight.damageType = DamageType.COSMIC){
+    if(knight.damageType === DamageType.COSMIC){
       atk = knight.basicAttributes.cosmicAtk
       defPerf = knight.battleAttributes.cosmicDEFPerf
       dmg = knight.battleAttributes.cosmicDMG
@@ -25,8 +25,8 @@ export class DamageCalculationService {
     finalFactor == 0? finalFactor = 1 : finalFactor = finalFactor
     let defFactor = (400+10*knight.level)/((knight.battleAttributes.defenderDef-defPerf)+400+10*knight.level)
     let resFactor = 1/1+knight.battleAttributes.defenderResDef
-    let damage = (atk*(dmgMultiplier/100)*dmg*resFactor*defFactor)*finalFactor
-    return 0
+    let damage = atk*(dmgMultiplier/100)*dmg*resFactor*defFactor*finalFactor
+    return Math.floor(damage)
   }
 
 }
