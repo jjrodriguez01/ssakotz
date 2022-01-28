@@ -19,7 +19,6 @@ export class KnightsFactory{
     
 
     getAll(): Knight[]{
-        console.log(this.list.toArray())
         return this.list.toArray()
     }
 

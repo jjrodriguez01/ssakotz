@@ -6,6 +6,7 @@ import { KnightTypeEnum } from "src/app/KnightType";
 import { SkillType } from "src/app/SkillType";
 import { SkillLevel } from "src/app/SkillLevel";
 import { DamageType } from "src/app/DamageType";
+import { DamageCalculationService } from "src/app/damage-calculation.service";
 
 export class Thanatos implements Knight{
     
@@ -19,7 +20,7 @@ export class Thanatos implements Knight{
     skills= [this.getBasic(1), this.getFirstSkill(1), this.getSecondSkill(1),this.getThirdSkill(1)]
     damageType = DamageType.PHYSIC
 
-    getBasic(level: number): KnightSkill {
+    getBasic(level: number,knight?:Knight): KnightSkill {
         let values = new Map<number,number[]>();
         values.set(1,[120,2]);
         values.set(2,[130,4]);
@@ -39,13 +40,15 @@ export class Thanatos implements Knight{
           });
         let activeLevel = levels.find(x => x.level === level)
         let activeVal = activeLevel !== undefined ? activeLevel.values : []
+
         let skill:KnightSkill={
             id: 1,
             name:"Castigo divino",
             //description: activeSkill !== undefined ? activeSkill.description:"",
-            description: `Inflige <b>${activeVal[0]}</b>% de DÑO F. a un enemigo y le otorga a Thanatos <b>${activeVal[1]}</b> de furia`,
+            description: `Inflige <b>${activeVal[0]}</b>% de DÑO F a un enemigo y le otorga a Thanatos <b>${activeVal[1]}</b> de furia`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ``
         }
         return skill
     }
@@ -76,7 +79,8 @@ export class Thanatos implements Knight{
             name:"Destino aterrador",
             description: `Ataca a un enemigo 5 veces, lo que inflige un <b>${activeVal[0]}</b>% de DÑO f. y aumenta la ira de Thanatos en <b>${activeVal[1]}</b> cada ocasión. Si su ira es menor de <b>${activeVal[2]}</b>, aumenta más su ira en 5. Por cada aliado que muere antes de usar esta habilidad, la ira aumenta en 10.`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -107,7 +111,8 @@ export class Thanatos implements Knight{
             name:"Poderío final",
             description: `Cuando la ira de Thanatos está completa, consume toda la ira y lanza poderío final, que inflige <b>${activeVal[0]}</b>% de daño verdadero (junto con el ataque aumentado al 100% por la ira) y destroza a todos los enemigos`,
             type: SkillType.PASSIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -139,30 +144,62 @@ export class Thanatos implements Knight{
             name:"Mirada de muerte",
             description: `Thanatos apunta a un objetivo que recibe <b>${activeVal[0]}</b>% de DÑO F., si sigue vivo después de <b>${activeVal[1]}</b> rondas de accion. Si la ira de Thanatos está por encima de <b>${activeVal[2]}</b>, recibe <b>${activeVal[3]}</b>% de daño adicional.`,
             type: SkillType.PASSIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
 
-    getSkill(id:number, level:number):KnightSkill {
+    getSkill(id:number, level:number,knight?: Knight):KnightSkill {
         let skill = this.getBasic(level);
+        let txt = this.getSkillDMGtext(knight!,id,level)
         switch(id){
             case 1:
                 skill = skill;
+                skill.damageResult = txt
                 break;
             case 2:
                 skill = this.getFirstSkill(level);
+                
+                console.log(txt)
+                skill.damageResult = txt
                 break;
             case 3:
                 skill = this.getSecondSkill(level);
+                skill.damageResult = txt
                 break;
             case 4:
                 skill = this.getThirdSkill(level);
+                skill.damageResult = txt
                 break;
             default:
                 skill = skill;
+                skill.damageResult = txt
                 break;
         }
         return skill;
+    }
+
+    getSkillDMGtext(Knight:Knight,skillId: number, level: number):string{
+
+        let txt = ``
+        let dmg = DamageCalculationService.damage(Knight,Knight.skills.find(x => x.id==skillId)?.levels[level-1].values[0]??0,0)
+        switch(skillId){
+            case 1:
+                txt = `Inflige ${dmg} de DÑO F y aumenta ${Knight.skills.find(x => x.id==skillId)?.levels[level-1].values[1]??0} de furia`
+                break;
+            case 2:
+                txt = `Inflige ${dmg} de DÑO F cada vez`
+                break;
+            case 3:
+                txt = `Inflige ${dmg} de daño verdadero a todos los enemigos`
+                break;
+            case 4:
+                let val = Knight.skills.find(x => x.id==skillId)?.levels[level-1].values[2]??0
+                let multiplier = Knight.skills.find(x => x.id==skillId)?.levels[level-1].values[3]??0
+                txt = `El objetivo que recibe ${dmg} de DÑO F. Si la ira de Thanatos está por encima de ${val}, recibe ${dmg*(multiplier/100)} de daño adicional.`
+                break;
+        }
+        return txt
     }
 }

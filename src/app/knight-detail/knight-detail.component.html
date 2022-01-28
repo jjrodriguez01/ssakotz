@@ -13,6 +13,7 @@
                             <select (change)="onChangeSkill(i+1)" [formControlName]="i" class="form-select form-select-sm" aria-label=".form-select-sm example">
                                 <option *ngFor="let level of knight.skills[i].levels" [ngValue]="level">Lvl.{{level.level}} {{level.description}}</option>
                             </select>
+                            <p>{{knight.skills[i].damageResult}}</p>
                         </div>
                     </div>
                 </form>
@@ -27,95 +28,139 @@
     </section>
     
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-5 col-sm-12">
                 <section>
                     <h3>Atributos básicos</h3>
                     <div class="attributes-flex">
+                        <div class="attribute"><span>Nivel: </span>{{knight.level}}</div>
                         <div class="attribute"><span>PS: </span>{{knight.basicAttributes.healtPoints}}</div>
-                        <div class="attribute"><span>Ataque cósmico: </span>{{knight.basicAttributes.cosmicAtk}}</div>
-                        <div class="attribute"><span>Defensa cósmica: </span>{{knight.basicAttributes.cosmicDef}}</div>
-                        <div class="attribute"><span>Ataque físico: </span>{{knight.basicAttributes.physicalAtk}}</div>
-                        <div class="attribute"><span>Defensa física: </span>{{knight.basicAttributes.physicalDef}}</div>
+                        <div *ngIf="knight.damageType === getKnightDmgType.COSMIC" class="attribute"><span>Ataque cósmico: </span>{{knight.basicAttributes.cosmicAtk}}</div>
+                        <div *ngIf="knight.damageType === getKnightDmgType.COSMIC" class="attribute"><span>Daño cósmico: </span>{{knight.battleAttributes.cosmicDMG }}</div>
+                        <div *ngIf="knight.damageType === getKnightDmgType.PHYSIC" class="attribute"><span>Ataque físico: </span>{{knight.basicAttributes.physicalAtk}}</div>
+                        <div *ngIf="knight.damageType === getKnightDmgType.PHYSIC" class="attribute" ><span>Nivel de crítico: </span>{{knight.battleAttributes.critPhysicLevel}}</div>
+                        <div *ngIf="knight.damageType === getKnightDmgType.PHYSIC" class="attribute"><span>Efecto del crítico: </span>{{knight.battleAttributes.physicalCritEffect}}</div>
+                        <div *ngIf="knight.damageType === getKnightDmgType.PHYSIC" class="attribute"><span>Base de crítico: </span>{{knight.battleAttributes.basePhysicalCrit}}</div>
+                        <div [hidden]="true" class="attribute"><span>Defensa cósmica: </span>{{knight.basicAttributes.cosmicDef}}</div>
+                        <div [hidden]="true" class="attribute"><span>Defensa física: </span>{{knight.basicAttributes.physicalDef}}</div>
                         <div class="attribute"><span>Velocidad: </span>{{knight.basicAttributes.speed}}</div>
                         <div class="attribute"><span>Prob. estado: </span>{{knight.battleAttributes.statusHit}}</div>
                         <div class="attribute"><span>Daño cósmico: </span>{{knight.battleAttributes.cosmicDMG}}</div>
-                        <div class="attribute"><span>Nivel de crítico: </span>{{knight.battleAttributes.critPhysicLevel}}</div>
-                        <div class="attribute"><span>Efecto del crítico: </span>{{knight.battleAttributes.physicalCritEffect}}</div>
-                        <div class="attribute"><span>Base de crítico: </span>{{knight.battleAttributes.basePhysicalCrit}}</div>
-                        <div class="attribute"><span>Curación: </span>{{knight.battleAttributes.healing}}</div>
-                        <div class="attribute"><span>Robo de vida: </span>{{knight.battleAttributes.hpSteal}}</div>
+                        <div [hidden]="true" class="attribute"><span>Curación: </span>{{knight.battleAttributes.healing}}</div>
+                        <div [hidden]="true" class="attribute"><span>Robo de vida: </span>{{knight.battleAttributes.hpSteal}}</div>
                     </div>
                 </section>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 col-sm-12">
                 <section>
                     <h3>Editar atributos básicos</h3>
-                    <div>
-                            <div class="">
-                                <label for="hp">PS</label>
-                                <input id="hp" name="hp" type="number" [(ngModel)]="knight.basicAttributes.healtPoints">
+                    <form [formGroup]="knightForm">
+                        <div class="form-group row">
+                            <label for="level" class="col-md-6 col-form-label">Nivel</label>
+                            <div class="col-md-6">
+                                <input id="level" type="number" formControlName="level">
+                            </div>
+                        </div>    
+                        <div class="form-group row">
+                                <label for="healtPoints" class="col-md-6 col-form-label">PS</label>
+                                <div class="col-md-6">
+                                    <input id="healtPoints" type="number" formControlName="healtPoints">
+                                </div>
                             </div>
                             <div *ngIf="knight.damageType === getKnightDmgType.COSMIC">
-                                <div class="">
-                                    <label for="cosmicAtk">Ataque cósmico</label>
-                                    <input id="cosmicAtk" name="cosmicAtk" type="number" [(ngModel)]="knight.basicAttributes.cosmicAtk">
+                                <div class="form-group row">
+                                    <label for="cosmicAtk" class="col-sm-6 col-form-label">Ataque cósmico</label>
+                                    <div class="col-sm-6">
+                                        <input id="cosmicAtk" type="number" formControlName="cosmicAtk">
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <label for="cosmicDMG">Daño cósmico</label>
-                                    <input id="cosmicDMG" name="cosmicDMG" type="number" [(ngModel)]="knight.battleAttributes.cosmicDMG">
+                                <div class="form-group row">
+                                    <label for="cosmicDMG" class="col-sm-6 col-form-label">Daño cósmico</label>
+                                    <div class="col-sm-6">
+                                        <input id="cosmicDMG" type="number" formControlName="cosmicDMG">
+                                    </div>
                                 </div>
                             </div>
                             <div *ngIf="knight.damageType === getKnightDmgType.PHYSIC" >
-                                <div class="">
-                                    <label for="physicalAtk">Ataque físico</label>
-                                    <input id="physicalAtk" name="physicalAtk" type="number" [(ngModel)]="knight.basicAttributes.physicalAtk">
+                                <div class="form-group row">
+                                    <label for="physicalAtk" class="col-sm-6 col-form-label">Ataque físico</label>
+                                    <div class="col-sm-6">
+                                        <input id="physicalAtk" type="number" formControlName="physicalAtk">
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <label for="critPhysicLevel">Nivel de crítico</label>
-                                    <input id="critPhysicLevel" name="critPhysicLevel" type="number" [(ngModel)]="knight.battleAttributes.critPhysicLevel">
+                                <div class="form-group row">
+                                    <label for="critPhysicLevel" class="col-sm-6 col-form-label">Nivel de crítico</label>
+                                    <div class="col-sm-6">
+                                        <input id="critPhysicLevel" type="number" formControlName="critPhysicLevel">
+
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <label for="physicalCritEffect">Efecto del crítico</label>
-                                    <input id="physicalCritEffect" name="physicalCritEffect" type="number" [(ngModel)]="knight.battleAttributes.physicalCritEffect">
+                                <div class="form-group row">
+                                    <label for="physicalCritEffect" class="col-sm-6 col-form-label">Efecto del crítico</label>
+                                    <div class="col-sm-6">
+                                        <input id="physicalCritEffect" type="number" formControlName="physicalCritEffect">
+                                    </div>
                                 </div>
-                                <div class="">
-                                    <label for="basePhysicalCrit">Base de crítico</label>
-                                    <input id="basePhysicalCrit" name="basePhysicalCrit" type="number" [(ngModel)]="knight.battleAttributes.basePhysicalCrit">
+                                <div class="form-group row">
+                                    <label for="basePhysicalCrit" class="col-sm-6 col-form-label">Base de crítico</label>
+                                    <div class="col-sm-6">
+                                        <input id="basePhysicalCrit" type="number" formControlName="basePhysicalCrit">
+
+                                    </div>
                                 </div>
                             </div>
-                            <div class="">
-                                <label for="cosmicDef">Defensa cósmica</label>
-                                <input id="cosmicDef" name="cosmicDef" type="number" [(ngModel)]="knight.basicAttributes.cosmicDef">
+                            <div [hidden]="true" class="form-group row">
+                                <label for="cosmicDef" class="col-sm-6 col-form-label">Defensa cósmica</label>
+                                <div class="col-sm-6">
+                                    <input id="cosmicDef" type="number" formControlName="cosmicDef">
+                                </div>
                             </div>
-                            <div class="">
-                                <label for="physicalDef">Defensa física</label>
-                                <input id="physicalDef" name="physicalDef" type="number" [(ngModel)]="knight.basicAttributes.physicalDef" >
+                            <div [hidden]="true" class="form-group row">
+                                <label for="physicalDef" class="col-sm-6 col-form-label">Defensa física</label>
+                                <div class="col-sm-6">
+                                    <input id="physicalDef" type="number" formControlName="physicalDef">
+                                </div>
                             </div>
-                            <div class="">
-                                <label for="speed">Velocidad</label>
-                                <input id="speed" name="speed" type="number" [(ngModel)]="knight.basicAttributes.speed">
+                            <div class="form-group row">
+                                <label for="speed" class="col-sm-6 col-form-label">Velocidad</label>
+                                <div class="col-sm-6">
+                                    <input id="speed" type="number" formControlName="speed">
+                                </div>
                             </div>
-                            <div class="">
-                                <label for="status-hit">Prob. inflingir estado</label>
-                                <input id="status-hit" name="status-hit" type="number" [(ngModel)]="knight.battleAttributes.statusHit">
+                            <div class="form-group row">
+                                <label for="statusHit" class="col-sm-6 col-form-label">Prob. inflingir estado</label>
+                                <div class="col-sm-6">
+                                    <input id="statusHit" type="number" formControlName="statusHit">
+                                </div>
                             </div>
-                            <div class="">
-                                <label for="healibg">Curación</label>
-                                <input id="healibg" name="healibg" type="number" [(ngModel)]="knight.battleAttributes.healing">
+                            <div [hidden]="true" class="form-group row">
+                                <label for="healing" class="col-sm-6 col-form-label">Curación</label>
+                                <div class="col-sm-6">
+                                    <input id="healing" type="number">
+                                </div>
                             </div>
-                            <div class="">
-                                <label for="hpSteal">Robo de vida</label>
-                                <input id="hpSteal" name="hpSteal" type="number" [(ngModel)]="knight.battleAttributes.hpSteal">
+                            <div [hidden]="true" class="form-group row">
+                                <label for="hpSteal" class="col-sm-6 col-form-label">Robo de vida</label>
+                                <div class="col-sm-6">
+                                    <input id="hpSteal" type="number">
+                                </div>
                             </div>
                             <hr/>
-                            <div class="">
-                                <label for="defDef">Defensa del oponente</label>
-                                <input id="defDef" name="defDef" type="number" [(ngModel)]="knight.battleAttributes.defenderDef">
+                            <div class="form-group row">
+                                <label for="defDef" class="col-sm-6 col-form-label">Defensa del oponente</label>
+                                <div class="col-sm-6">
+                                    <input id="defDef" type="number" formControlName="defenderDef">
+                                </div>
                             </div>
-                    </div>
+                            <div class="form-group row">
+                                <label for="defenderResDef" class="col-sm-6 col-form-label">Resistencia del oponente</label>
+                                <div class="col-sm-6">
+                                    <input id="defenderResDef" type="number" formControlName="defenderResDef">
+                                </div>
+                            </div>
+                    </form>
                 </section>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 col-sm-12">
                 <select name="cosmo" [ngModel]="selectedCosmo" (ngModelChange)="onChangeSelCosmo($event)" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option value="undefined"></option>
                     <option *ngFor="let cosmo of cosmos" [ngValue]="cosmo">{{cosmo.name}}</option>
@@ -125,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row m-5">
             <button>Calcular</button>
             <app-knight-result></app-knight-result>
         </div>

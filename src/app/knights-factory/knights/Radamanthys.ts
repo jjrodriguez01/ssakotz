@@ -49,7 +49,8 @@ export class Radamanthys implements Knight{
             name:"Ataque fluctuante",
             description: `Ataca a un enemigo 3 veces e inflinge un <b>${activeVal[0]}</b>% de daño cada vez que ataca.`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -84,7 +85,8 @@ export class Radamanthys implements Knight{
             name:"Vigilancia definitiva",
             description: `Se carga durante 1 ronda. Lanza 3 olas de alerta al comienzo de la tercera ronda de acción, y cada una inflige <b>${activeVal[0]}</b>% de DÑO F a un enemigo al azar. Si Radamantis esta bajo control, las olas de alerta se libera la próxima vez que él actua`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -115,7 +117,8 @@ export class Radamanthys implements Knight{
             name:"Alas flameantes",
             description: `Cada vez que un aliado conecta un golpe crítico, las olas de dragón ganan 1 carga. Los críticos contínuos también otorgan 1 carga extra. Cada par de alas de dragón quema ferozmente al llegar a las <b>${activeVal[0]}</b> cargas. Cuando Radamantis lanza Vigilancia definitiva, cada par de alas de dragon ardientes tiene una probabilidad del <b>${activeVal[1]}</b>% de generar 3 olas de alerta. Cuando los 4 pares de alas están ardiendo entra el estado de alas llameantes y genera 12 olas de alerta adicionales`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -146,7 +149,8 @@ export class Radamanthys implements Knight{
             name:"Rugido de oscuridad - Tras despertar",
             description: `Radamantis obtiene un 50% de reducción de daño cuando está cargando, durante lo cual tiene un <b>${activeVal[0]}</b>% de probabilidad de obtener una carga cuando un aliado es atacado, o un 100 % de probabilidad cuando un aliado muere. Si recibe daño letal mientras carga, es inmune a la muerte (solo se activa una vez). Todos los enemigos que lo hayan atacado mientras estaba cargando recibirán un <b>${activeVal[1]}</b>% de daño de la Viailancia definitiva cargada`,
             type: SkillType.PASSIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }

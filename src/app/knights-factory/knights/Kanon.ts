@@ -45,7 +45,8 @@ export class Kanon implements Knight{
             name:"Satán Imperial",
             description: `Inflige DÑO C. igual al <b>${activeVal[0]}</b>% + (<b>${activeVal[1]}</b>% por acumulación de (determinación) a un enemigo).`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -76,7 +77,8 @@ export class Kanon implements Knight{
             name:"Explosión Galáctica - Oculto",
             description: `Libera Explosión galáctica en un enemigo, infligiendo <b>${activeVal[0]}</b>% de DÑO C. y <b>${activeVal[1]}</b>% de daño verdadero. Kanon se oculta durante 1 ronda de acción y luego de lanzar Explosión galáctica y obtiene <b>${activeVal[2]}</b> acumulación de determinación.`,
             type: SkillType.ACTIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }
@@ -117,7 +119,8 @@ export class Kanon implements Knight{
             name:"Fantásma de Géminis",
             description: "Antes de que Kanon inicie su acción, crea un fantasma de Géminis que no puede ser atacado. La ilusión hereda el ATQ y el multiplicador de DÑO C. y lanza un ataque idéntico al objetivo cuando Kanon ataca. Si el objetivo muere, ataca a un enemigo aleatorio.",
             type: SkillType.PASSIVE,
-            levels: [lvl1,lvl2,lvl3,lvl4,lvl5]
+            levels: [lvl1,lvl2,lvl3,lvl4,lvl5],
+            damageResult: ""
         }
         return skill
     }
@@ -149,7 +152,8 @@ export class Kanon implements Knight{
             name:"Redención de corazón - Sello",
             description: `La muerte de su hermano y compañeros, como el renacimiento del caballero de Géminis, fortalecieron la voluntad de Kanon. Por cada aliado que muere, Kanon obtiene <b>${activeVal[0]}</b> acumulaciones de detarminación. Cuándo recibe daño mortal obtine Bendicion y restaura <b>${activeVal[1]}</b>% de sus PS de inmediate, y un <b>${activeVal[2]}</b>% adicional por cada acumulación de determinación. (solo se puede activar una vez por batalla). (Determinacion se acumula hasta 20 veces por batalla)`,
             type: SkillType.PASSIVE,
-            levels: levels
+            levels: levels,
+            damageResult: ""
         }
         return skill
     }

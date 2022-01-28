@@ -59,13 +59,13 @@ export class KnightService {
     );
   }
 
-  getSkill(knightId:number, skillId:number, level: number): KnightSkill{
-    let skill : KnightSkill = {description:"",id:0,type:SkillType.ACTIVE,name:"",levels:[]}
+  getSkill(knightId:number, skillId:number, level: number, knightValues?:Knight): KnightSkill{
+    let skill : KnightSkill = {description:"",id:0,type:SkillType.ACTIVE,name:"",levels:[],damageResult:""}
     let knight: Knight
     let factory = new KnightsFactory()
     knight = factory.getKnight(knightId)!//‘!’ operator indicate this value isn’t nullable
     if(knight !== undefined){
-      skill=knight.getSkill(skillId,level)
+      skill=knight.getSkill(skillId,level,knightValues)
     }
     return skill
   }

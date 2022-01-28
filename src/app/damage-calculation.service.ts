@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { DamageType } from './DamageType';
 import { Knight } from './knight';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DamageCalculationService {
 
   constructor() { }
 
-  damage(knight: Knight, dmgMultiplier: number,finalFactor: number): number{
+  static damage(knight: Knight, dmgMultiplier: number,finalFactor: number): number{
     let atk = 0
     let defPerf = 0
     let dmg = 0

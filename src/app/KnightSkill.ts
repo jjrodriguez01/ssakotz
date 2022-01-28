@@ -6,5 +6,6 @@ export interface KnightSkill{
     name: string
     type: SkillType
     description: string
+    damageResult: string
     levels: SkillLevel[]
 }
