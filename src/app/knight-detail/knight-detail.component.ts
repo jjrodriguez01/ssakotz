@@ -24,9 +24,10 @@ export class KnightDetailComponent implements OnInit {
   selectedCosmo = undefined
   skillsForm: FormGroup
   knightForm: FormGroup
-  href: string = "";
+  href: string = window.location.href
+  x="jjj"
 
-  constructor(private route: ActivatedRoute,private router: Router,
+  constructor(private route: ActivatedRoute,
     private knightService: KnightService,
     private cosmoService: CosmoService,
     private fb:FormBuilder) { 
@@ -56,7 +57,6 @@ export class KnightDetailComponent implements OnInit {
         defenderResDef: new FormControl(""),
         defenderCritRes: new FormControl(""),
       })
-      console.log(router.url)
     }
 
   get skillsFormArray() : FormArray {

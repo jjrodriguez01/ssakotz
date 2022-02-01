@@ -10,7 +10,7 @@ export class KnightResultComponent implements OnInit {
 
   constructor() { }
 
-  @Input() knight?: Knight;
+  @Input() url?: string ;
 
   ngOnInit(): void {
   }
